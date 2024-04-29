@@ -28,7 +28,9 @@ function createTask(taskName){
     const updateBtn = document.createElement("button");
     updateBtn.textContent = "Modifier"
 
-    updateBtn.addEventListener("click", updateTask)
+    updateBtn.addEventListener("click", function (){
+        updateTask(taskId)
+    })
 
 
     const task = document.createElement("div");
@@ -53,8 +55,14 @@ function deleteTask(taskId){
     }
 }
 
-function updateTask() {
-alert("update")
+function updateTask(taskId) {
+    const task = document.getElementById(taskId);
+    const newTaskName = prompt("Enter the new task name");
+
+    if (newTaskName) {
+        const taskLabel = task.querySelector("label");
+        taskLabel.textContent = newTaskName;
+    }
 }
 
 function addTask(event) {
@@ -74,6 +82,3 @@ function addTask(event) {
 
 tasksForm.addEventListener("submit", addTask)
 
-for (const btn of deleteBtns) {
-    console.log(btn)
-}
