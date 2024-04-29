@@ -5,18 +5,57 @@ const tasks = document.querySelector("#tasks")
 
 function createTask(taskName){
     const taskId = crypto.randomUUID()
-    const taskTemplate = `<input type="checkbox" name=${taskId} id=${taskId}>
-            <label for=${taskId}>${taskName}</label>`
+    const checkBoxId = "tache" + taskId;
+
+    const taskCheckInput = document.createElement("input");
+    taskCheckInput.type = "checkbox";
+    taskCheckInput.id = checkBoxId;
+
+    const taskLabel = document.createElement("label")
+    taskLabel.htmlFor = checkBoxId;
+    taskLabel.textContent = taskName
+
+    const br = document.createElement('br');
+    const hr = document.createElement('hr');
+
+    const deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "Supprimer"
+
+    deleteBtn.addEventListener("click", function (){
+        deleteTask(taskId)
+    })
+
+    const updateBtn = document.createElement("button");
+    updateBtn.textContent = "Modifier"
+
+    updateBtn.addEventListener("click", updateTask)
+
 
     const task = document.createElement("div");
 
+
     task.className = "task"
 
-    task.innerHTML = taskTemplate;
+    task.id = taskId
+
+    task.append(taskCheckInput, taskLabel, br, deleteBtn, updateBtn, hr)
 
     tasks.appendChild(task)
 }
 
+function deleteTask(taskId){
+    const task = document.getElementById(taskId)
+
+    const confirmDeletion = confirm("Voulez-vous supprimer cette tache ?")
+
+    if (confirmDeletion){
+        task.remove();
+    }
+}
+
+function updateTask() {
+alert("update")
+}
 
 function addTask(event) {
     const data = new FormData(event.target)
@@ -28,8 +67,13 @@ function addTask(event) {
         event.target.reset()
     }
 
+
     event.preventDefault();
 }
 
 
 tasksForm.addEventListener("submit", addTask)
+
+for (const btn of deleteBtns) {
+    console.log(btn)
+}
